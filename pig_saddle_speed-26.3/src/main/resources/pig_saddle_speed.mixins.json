@@ -1,0 +1,11 @@
+{
+	"required": true,
+	"package": "pigsaddlespeed.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"SaddledMountSpeedMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

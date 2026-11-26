@@ -1,0 +1,16 @@
+{
+	"schemaVersion": 1,
+	"id": "nether_roof_portal_blocker",
+	"version": "1.0.0",
+	"name": "Nether Roof Portal Blocker",
+	"description": "Prevents entering Nether portals at or above the Nether roof.",
+	"environment": "server",
+	"mixins": [
+		"nether_roof_portal_blocker.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.3",
+		"java": ">=25"
+	}
+}

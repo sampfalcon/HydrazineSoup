@@ -1,0 +1,22 @@
+{
+	"schemaVersion": 1,
+	"id": "pig_saddle_speed",
+	"version": "${version}",
+	"name": "Pig Saddle Speed",
+	"description": "Configurable movement speed boost for saddled pigs.",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"pigsaddlespeed.PigSaddleSpeedMod"
+		]
+	},
+	"mixins": [
+		"pig_saddle_speed.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

@@ -1,0 +1,45 @@
+{
+	"schemaVersion": 1,
+	"id": "gold_tools_buff",
+	"version": "${version}",
+	"name": "Gold Tools Buff",
+	"description": "Crafted golden tools have 300 durability.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/gold_tools_buff/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "goldtoolsbuff.modid.Gold_Tools_Buff",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "goldtoolsbuff.modid.client.Gold_Tools_BuffClient",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"gold_tools_buff.mixins.json",
+		{
+			"config": "gold_tools_buff.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": "~26.3",
+		"java": ">=25",
+		"fabric-api": "*",
+		"fabric-language-kotlin": "*"
+	}
+}
