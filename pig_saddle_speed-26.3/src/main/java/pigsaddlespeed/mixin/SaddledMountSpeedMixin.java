@@ -12,6 +12,7 @@ import net.minecraft.world.entity.animal.equine.Donkey;
 import net.minecraft.world.entity.animal.equine.Horse;
 import net.minecraft.world.entity.animal.equine.Mule;
 import net.minecraft.world.entity.animal.happyghast.HappyGhast;
+import pigsaddlespeed.PigSaddleSpeedMod.MountType;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,12 +21,6 @@ import pigsaddlespeed.PigSaddleSpeedMod;
 
 @Mixin(Mob.class)
 public abstract class SaddledMountSpeedMixin {
-	private static final Identifier HORSE_MODIFIER_ID = modifierId("horse");
-	private static final Identifier DONKEY_MODIFIER_ID = modifierId("donkey");
-	private static final Identifier CAMEL_MODIFIER_ID = modifierId("camel");
-	private static final Identifier HAPPY_GHAST_MODIFIER_ID = modifierId("happy_ghast");
-	private static final Identifier MULE_MODIFIER_ID = modifierId("mule");
-
 	@Inject(method = "tick", at = @At("TAIL"))
 	private void pig_saddle_speed$updateSaddleSpeed(CallbackInfo callbackInfo) {
 		Mob mob = (Mob) (Object) this;
@@ -33,11 +28,12 @@ public abstract class SaddledMountSpeedMixin {
 			return;
 		}
 
-		Identifier modifierId = getModifierId(mob);
-		if (modifierId == null) {
+		MountType mountType = getMountType(mob);
+		if (mountType == null) {
 			return;
 		}
 
+		Identifier modifierId = modifierId(mountType);
 		Holder<Attribute> movementSpeedAttribute = Attributes.MOVEMENT_SPEED;
 		AttributeInstance movementSpeed = mob.getAttribute(movementSpeedAttribute);
 		if (movementSpeed == null) {
@@ -45,7 +41,7 @@ public abstract class SaddledMountSpeedMixin {
 		}
 
 		if (mob.isSaddled() && !movementSpeed.hasModifier(modifierId)) {
-			double multiplier = PigSaddleSpeedMod.getMovementSpeedMultiplier();
+			double multiplier = PigSaddleSpeedMod.getMovementSpeedMultiplier(mountType);
 			movementSpeed.addTransientModifier(new AttributeModifier(
 					modifierId,
 					multiplier - 1.0,
@@ -56,22 +52,25 @@ public abstract class SaddledMountSpeedMixin {
 		}
 	}
 
-	private static Identifier getModifierId(Mob mob) {
+	private static MountType getMountType(Mob mob) {
 		if (mob instanceof Horse) {
-			return HORSE_MODIFIER_ID;
+			return MountType.HORSE;
 		} else if (mob instanceof Donkey) {
-			return DONKEY_MODIFIER_ID;
+			return MountType.DONKEY;
 		} else if (mob instanceof Camel) {
-			return CAMEL_MODIFIER_ID;
+			return MountType.CAMEL;
 		} else if (mob instanceof HappyGhast) {
-			return HAPPY_GHAST_MODIFIER_ID;
+			return MountType.HAPPY_GHAST;
 		} else if (mob instanceof Mule) {
-			return MULE_MODIFIER_ID;
+			return MountType.MULE;
 		}
 		return null;
 	}
 
-	private static Identifier modifierId(String mountType) {
-		return Identifier.fromNamespaceAndPath(PigSaddleSpeedMod.MOD_ID, "saddle_speed_" + mountType);
+	private static Identifier modifierId(MountType mountType) {
+		return Identifier.fromNamespaceAndPath(
+				PigSaddleSpeedMod.MOD_ID,
+				"saddle_speed_" + mountType.getConfigName()
+		);
 	}
 }
