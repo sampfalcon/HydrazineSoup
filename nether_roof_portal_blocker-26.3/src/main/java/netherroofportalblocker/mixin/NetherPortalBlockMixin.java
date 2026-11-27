@@ -4,6 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.InsideBlockEffectApplier;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.NetherPortalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,6 +28,7 @@ public abstract class NetherPortalBlockMixin {
 			CallbackInfo callbackInfo
 	) {
 		if (!level.isClientSide() && level.dimension() == Level.NETHER && pos.getY() >= MIN_ROOF_PORTAL_Y) {
+			level.setBlock(pos, Blocks.AIR.defaultBlockState(), Block.UPDATE_ALL);
 			callbackInfo.cancel();
 		}
 	}

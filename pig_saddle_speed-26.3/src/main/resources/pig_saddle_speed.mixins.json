@@ -3,7 +3,8 @@
 	"package": "pigsaddlespeed.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
-		"SaddledMountSpeedMixin"
+		"SaddledMountSpeedMixin",
+		"PigRiddenSpeedMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

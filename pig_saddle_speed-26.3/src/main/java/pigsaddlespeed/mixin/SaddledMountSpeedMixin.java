@@ -12,7 +12,6 @@ import net.minecraft.world.entity.animal.equine.Donkey;
 import net.minecraft.world.entity.animal.equine.Horse;
 import net.minecraft.world.entity.animal.equine.Mule;
 import net.minecraft.world.entity.animal.happyghast.HappyGhast;
-import net.minecraft.world.entity.animal.pig.Pig;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -21,7 +20,6 @@ import pigsaddlespeed.PigSaddleSpeedMod;
 
 @Mixin(Mob.class)
 public abstract class SaddledMountSpeedMixin {
-	private static final Identifier PIG_MODIFIER_ID = modifierId("pig");
 	private static final Identifier HORSE_MODIFIER_ID = modifierId("horse");
 	private static final Identifier DONKEY_MODIFIER_ID = modifierId("donkey");
 	private static final Identifier CAMEL_MODIFIER_ID = modifierId("camel");
@@ -59,9 +57,7 @@ public abstract class SaddledMountSpeedMixin {
 	}
 
 	private static Identifier getModifierId(Mob mob) {
-		if (mob instanceof Pig) {
-			return PIG_MODIFIER_ID;
-		} else if (mob instanceof Horse) {
+		if (mob instanceof Horse) {
 			return HORSE_MODIFIER_ID;
 		} else if (mob instanceof Donkey) {
 			return DONKEY_MODIFIER_ID;
